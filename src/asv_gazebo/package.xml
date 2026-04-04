@@ -4,7 +4,7 @@
   <name>asv_gazebo</name>
   <version>0.0.0</version>
   <description>Mundos e modelos de simulacao para o ASV no Gazebo</description>
-  <maintainer email="seu@email.com">Seu Nome</maintainer>
+  <maintainer email="[EMAIL_ADDRESS]">Michel Kleyton</maintainer>
   <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
