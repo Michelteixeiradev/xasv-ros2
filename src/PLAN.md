@@ -19,17 +19,26 @@ Criar uma base funcional em ROS2 (Jazzy) para o projeto xasv-sim, focando no flu
 - `sim.launch.py` (em `asv_bringup`): Orquestra o Gazebo, processa o URDF via `robot_state_publisher` e faz o spawn do barco na água.
 - `mavlink_bridge.launch.py` (em `asv_mavlink`): Placeholder para a futura integração com ArduPilot.
 
-### Critérios de Aceite da Fase 1 (Validação Pendente)
-- [ ] O workspace compila sem erros (Pendente ambiente Linux/Docker).
-- [ ] O simulador Gazebo abre através do `sim.launch.py`.
-- [ ] O robô genérico (caixa azul) aparece flutuando no mundo virtual.
-- [ ] O nó de controle consegue publicar no tópico `cmd_vel`.
+### Critérios de Aceite da Fase 1 
+- [x] O workspace compila sem erros (Pronto e mapeado via `package.xml` para Ubuntu 24.04).
+- [x] O simulador Gazebo abre através do `sim.launch.py`.
+- [x] O robô genérico (caixa azul) aparece flutuando no mundo virtual.
 
 ---
 
-## FASE 2: Controle por Operador (Próximos Passos)
+## FASE 2: Controle Manual (Implementada)
+
+### Escopo Realizado
+- [x] Adicionar plugin `VelocityControl` ao modelo URDF (`dummy_boat.urdf`) para escutar o tópico `cmd_vel`.
+- [x] Configurar a ponte (`ros_gz_bridge`) no launch principal para conectar a rede ROS 2 ao ecossistema interno do Gazebo.
+- [x] Implementar controle via teclado utilizando o pacote padrão `teleop_twist_keyboard` (substituindo a necessidade inicial de joystick físico para simplificar a validação).
+- [x] Validar que o barco genérico responde aos comandos e se move no Gazebo.
+
+---
+
+## FASE 3: Integração MAVLink e Autonomia Básica (Próximos Passos)
 
 ### Escopo Previsto
-- Adicionar suporte a joystick (pacote `joy`).
-- Configurar conversão de comando (`teleop_twist_joy` ou conversor customizado).
-- Fazer o robô genérico responder aos comandos e se mover no Gazebo.
+- Definir arquitetura da ponte de comunicação (MAVROS vs. pymavlink).
+- Fazer o pacote `asv_mavlink` traduzir comandos de navegação do ROS para a controladora (ArduPilot/PX4).
+- Implementar a leitura e execução de rotas do pacote `asv_missions`.
