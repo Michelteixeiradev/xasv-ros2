@@ -1,19 +1,23 @@
 <?xml version="1.0"?>
-<!-- Explicação do código abaixo -->
-<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?> <!-- Define o formato do pacote, que é o ROS 2 -->
-<package format="3"> <!-- Define o formato do pacote, que é o ROS 2 -->
-  <name>asv_bringup</name> <!-- Define o nome do pacote -->
-  <version>0.0.0</version> <!-- Define a versão do pacote -->
-  <description>Pacote de inicializacao do ASV</description> <!-- Define a descrição do pacote -->
-  <maintainer email="[EMAIL_ADDRESS]">Michel Kleyton</maintainer> <!-- Define o mantenedor do pacote -->
-  <license>Apache-2.0</license> <!-- Define a licença do pacote -->
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>asv_control</name>
+  <version>0.0.0</version>
+  <description>Pacote de controle de movimentacao do ASV</description>
+  <maintainer email="michel@todo.todo">Michel Kleyton</maintainer>
+  <license>Apache-2.0</license>
 
-  <test_depend>ament_copyright</test_depend> <!-- Dependência para testes de direitos autorais -->
-  <test_depend>ament_flake8</test_depend> <!-- Dependência para testes de linting -->
-  <test_depend>ament_pep257</test_depend> <!-- Dependência para testes de linting -->
-  <test_depend>python3-pytest</test_depend> <!-- Dependência para testes de pytest -->
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  
+  <exec_depend>teleop_twist_keyboard</exec_depend>
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
 
   <export>
-    <build_type>ament_cmake</build_type> <!-- Define o tipo de build, que é o ament_cmake -->
+    <build_type>ament_python</build_type>
   </export>
 </package>
