@@ -1,8 +1,13 @@
 from launch import LaunchDescription
-from launch.actions import LogInfo
+from launch_ros.actions import Node
 
 def generate_launch_description():
     return LaunchDescription([
-        LogInfo(msg="Iniciando a ponte MAVLink (Placeholder para Fase 3)"),
-        # Futuramente, o no do MAVROS ou ponte MAVLink entrara aqui
+        # Este é o comando que aciona o nosso script Python
+        Node(
+            package='asv_mavlink',
+            executable='mavlink_bridge_node.py',
+            name='mavlink_bridge_node',
+            output='screen'
+        )
     ])
