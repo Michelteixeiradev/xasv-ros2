@@ -12,7 +12,8 @@ def generate_launch_description():
     pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
 
     # 2. Definindo os arquivos exatos que queremos usar
-    world_file = os.path.join(pkg_asv_gazebo, 'worlds', 'empty_ocean.sdf')
+    # Mude esta linha:
+    world_file = os.path.join(pkg_asv_gazebo, 'worlds', 'madeira_river.sdf')
     urdf_file = os.path.join(pkg_asv_description, 'urdf', 'dummy_boat.urdf')
 
     # Lendo o arquivo URDF como texto para mandar para os nós
