@@ -1,0 +1,101 @@
+
+<?xml version="1.0" ?>
+<!-- ↑ Declaração XML padrão, igual ao URDF. Define a versão do XML. -->
+
+<sdf version="1.8">
+<!-- ↑ Tag raiz do arquivo SDF (Simulation Description Format).
+       É o equivalente ao <robot> do URDF, mas para mundos do Gazebo.
+       version="1.8" indica a versão da especificação SDF usada. -->
+
+  <world name="empty_ocean">
+    <!-- ↑ Define um MUNDO de simulação chamado "empty_ocean".
+         Um arquivo SDF pode ter múltiplos mundos, mas geralmente usamos um.
+         Pense nisso como o "cenário" onde o robô será colocado. -->
+
+    <physics name="1ms" type="ignored">
+    <!-- ↑ Configura o motor de FÍSICA da simulação.
+           name="1ms" → apelido para essa configuração
+           type="ignored" → o Gazebo Harmonic ignora esse campo (legado) -->
+
+      <max_step_size>0.001</max_step_size>
+      <!-- ↑ Tamanho máximo de cada "passo" da simulação em segundos.
+             0.001 = 1 milissegundo. Quanto menor, mais precisa a física,
+             mas mais pesada a simulação. 1ms é o padrão recomendado. -->
+
+      <real_time_factor>1.0</real_time_factor>
+      <!-- ↑ Fator de tempo real. 1.0 = simulação roda na velocidade normal.
+             0.5 = simulação roda na metade da velocidade
+             2.0 = simulação roda duas vezes mais rápido -->
+    </physics>
+
+    <plugin
+      filename="gz-sim-physics-system"
+      name="gz::sim::systems::Physics">
+    </plugin>
+    <!-- ↑ PLUGIN DE FÍSICA: Carrega o sistema que calcula gravidade,
+           colisões, forças, etc. Sem ele, nada se move no mundo.
+           filename → nome da biblioteca (.so/.dylib) do plugin
+           name → classe C++ que implementa o sistema -->
+    
+    <plugin
+      filename="gz-sim-user-commands-system"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+    <!-- ↑ PLUGIN DE COMANDOS DO USUÁRIO: Permite interagir com a simulação
+           (ex: pausar, adicionar/remover modelos, mover objetos pela GUI).
+           Sem ele, você não consegue manipular a cena durante a simulação. -->
+
+
+    <plugin
+      filename="gz-sim-scene-broadcaster-system"
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+    <!-- ↑ PLUGIN DE TRANSMISSÃO DA CENA: Publica o estado da simulação
+           (posições, rotações de todos os objetos) para que a GUI do Gazebo
+           consiga renderizar/exibir tudo na tela. Sem ele, a janela fica vazia. -->
+
+    <light type="directional" name="sun">
+    <!-- ↑ Cria uma LUZ direcional chamada "sun" (sol).
+           type="directional" = luz paralela, como o sol (sem ponto de origem).
+           Outros tipos: "point" (lâmpada) e "spot" (holofote). -->
+
+      <cast_shadows>true</cast_shadows>
+      <!-- ↑ Se true, objetos iluminados pela luz projetarão sombras. -->
+
+      <pose>0 0 10 0 0 0</pose>
+      <!-- ↑ Posição e orientação da luz no mundo.
+             Formato: X Y Z Roll Pitch Yaw (metros e radianos)
+             0 0 10 = 10 metros acima do chão, no centro do mundo -->
+
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <!-- ↑ Cor e intensidade da luz difusa (cor base).
+             RGBA: vermelho, verde, azul, alfa (transparência).
+             (0.8, 0.8, 0.8, 1) = branco suave. -->
+
+      <specular>0.2 0.2 0.2 1</specular>
+      <!-- ↑ Cor e intensidade da luz especular (brilho/reflexos). -->
+
+      <attenuation>0
+      <!-- ↑ Define como a luz ENFRAQUECE com a distância -->
+
+        <range>1000</range>
+        <!-- ↑ Alcance máximo da luz (metros). -->
+        
+        <constant>0.9</constant>
+        <!-- ↑ Coeficiente constante (sem atenuação). Quanto mais perto de 1.0, menos a luz perde força. -->
+        
+        <linear>0.01</linear>
+        <!-- ↑ Coeficiente linear (atenuação média). Quanto maior, mais rápido a luz perde força com a distância. -->
+        
+        <quadratic>0.001</quadratic>
+        <!-- ↑ Coeficiente quadrático (atenuação forte). Quanto maior, mais rápido a luz perde força com a distância. -->
+      </attenuation>
+
+      <direction>-0.5 0.1 -0.9</direction>
+      <!-- ↑ Direção da luz (vetor unitário).
+             (-0.5, 0.1, -0.9) = aponta para baixo e um pouco para a direita/frente.
+             A soma dos quadrados dos componentes deve ser 1 (normalizado). simulando o sol no meio da tarde. O Z negativo aponta para baixo. -->
+    </light>
+
+  </world>
+</sdf>
