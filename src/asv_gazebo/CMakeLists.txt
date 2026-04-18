@@ -7,9 +7,9 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 
-# Instala a pasta de mundos para que o Gazebo consiga acha-los
 install(DIRECTORY
   worlds
+  models
   DESTINATION share/${PROJECT_NAME}
 )
 
