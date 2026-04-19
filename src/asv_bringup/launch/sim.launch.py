@@ -27,7 +27,7 @@ def _launch_setup(context, *args, **kwargs):
     if headless:
         gz_args = f'-s {gz_args}'
 
-    # Variáveis de Ambiente para Estabilidade na VM
+    # Variáveis de Ambiente para Estabilidade na VM (Salvando a performance)
     set_libgl = SetEnvironmentVariable(name='LIBGL_ALWAYS_SOFTWARE', value='1')
     set_render = SetEnvironmentVariable(name='GZ_RENDERING_ENGINE_GUESS', value='ogre')
 
@@ -46,6 +46,7 @@ def _launch_setup(context, *args, **kwargs):
         ],
     )
 
+    # 1. O motor do simulador
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')
@@ -53,6 +54,7 @@ def _launch_setup(context, *args, **kwargs):
         launch_arguments={'gz_args': gz_args}.items()
     )
 
+    # 2. Publicador do estado do robô (para o RViz ver)
     robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
@@ -61,6 +63,7 @@ def _launch_setup(context, *args, **kwargs):
         parameters=[{'robot_description': robot_desc}]
     )
 
+    # 3. Spawn do barco no mundo
     spawn_entity = Node(
         package='ros_gz_sim',
         executable='create',
@@ -72,21 +75,22 @@ def _launch_setup(context, *args, **kwargs):
         output='screen'
     )
 
+    # 4. A PONTE (O que você validou hoje!)
     bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
-        # Mapeamos o /cmd_vel do ROS para o tópico específico do modelo no Gazebo
-        arguments=['/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist'],
-        parameters=[{
-            'config_file': os.path.join(pkg_asv_gazebo, 'config', 'ros_gz_bridge.yaml') # Opcional se usar arquivo
-        }],
+        arguments=[
+            # Comando de Movimento (ROS -> Gazebo)
+            '/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist',
+            # Telemetria de Posição (Gazebo -> ROS)
+            '/world/empty_ocean/pose/info@geometry_msgs/msg/PoseArray[gz.msgs.Pose_V'
+        ],
         remappings=[
-            ('/cmd_vel', '/model/dummy_boat/cmd_vel'),
+            ('/world/empty_ocean/pose/info', '/model/dummy_boat/pose'),
         ],
         output='screen'
     )
 
-    # AQUI ESTAVA O ERRO (LINHA 92): Todos os itens devem estar alinhados
     return [
         set_libgl,
         set_render,
