@@ -75,7 +75,13 @@ def _launch_setup(context, *args, **kwargs):
         output='screen'
     )
 
-    # 4. A PONTE (O que você validou hoje!)
+    # 4. Ponte ROS <-> Gazebo
+    # O tópico de pose do Gazebo inclui o nome do mundo, ex:
+    #   /world/empty_ocean/pose/info  ou  /world/madeira_river_simple/pose/info
+    # Extraímos o nome do mundo do arquivo SDF para construir o tópico correto.
+    world_base = os.path.splitext(os.path.basename(world_name))[0]
+    pose_topic = f'/world/{world_base}/pose/info'
+
     bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
@@ -83,10 +89,10 @@ def _launch_setup(context, *args, **kwargs):
             # Comando de Movimento (ROS -> Gazebo)
             '/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist',
             # Telemetria de Posição (Gazebo -> ROS)
-            '/world/empty_ocean/pose/info@geometry_msgs/msg/PoseArray[gz.msgs.Pose_V'
+            f'{pose_topic}@geometry_msgs/msg/PoseArray[gz.msgs.Pose_V'
         ],
         remappings=[
-            ('/world/empty_ocean/pose/info', '/model/dummy_boat/pose'),
+            (pose_topic, '/model/dummy_boat/pose'),
         ],
         output='screen'
     )
