@@ -111,7 +111,7 @@ def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument(
             'world',
-            default_value='empty_ocean.sdf',
+            default_value='madeira_river_simple.sdf',
             description='World file name in asv_gazebo/worlds or an absolute path.',
         ),
         DeclareLaunchArgument(
