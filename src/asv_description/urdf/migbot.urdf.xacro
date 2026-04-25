@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="migbot2">
-  <xacro:arg name="namespace" default="migbot2" />
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="migbot">
+  <xacro:arg name="namespace" default="migbot" />
   <xacro:arg name="ardupilot" default="true" />
   <xacro:property name="imu_mass" value="0.002" />
   <xacro:property name="mag_mass" value="0.001" />
@@ -14,6 +14,10 @@
   <xacro:property name="ref_lon" value="-63.952087" />
   <xacro:property name="ref_alt" value="58" />
   <xacro:property name="S" value="1.0" />
+
+  <!-- ====================================================== -->
+  <!-- Hélices (6 unidades)                                   -->
+  <!-- ====================================================== -->
   <link name="Helice_1">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -33,6 +37,7 @@
       <inertia ixx="0.009499" ixy="0.0" ixz="0.0" iyy="0.000149" iyz="0.0" izz="0.009499" />
     </inertial>
   </link>
+
   <link name="Helice_2">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -52,6 +57,7 @@
       <inertia ixx="0.009499" ixy="0.0" ixz="0.0" iyy="0.000149" iyz="0.0" izz="0.009499" />
     </inertial>
   </link>
+
   <link name="Helice_3">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -71,6 +77,7 @@
       <inertia ixx="0.009499" ixy="0.0" ixz="0.0" iyy="0.000149" iyz="0.0" izz="0.009499" />
     </inertial>
   </link>
+
   <link name="Helice_4">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -90,6 +97,7 @@
       <inertia ixx="0.009499" ixy="0.0" ixz="0.0" iyy="0.000149" iyz="0.0" izz="0.009499" />
     </inertial>
   </link>
+
   <link name="Helice_5">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -109,6 +117,7 @@
       <inertia ixx="0.009499" ixy="0.0" ixz="0.0" iyy="0.000149" iyz="0.0" izz="0.009499" />
     </inertial>
   </link>
+
   <link name="Helice_6">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -128,6 +137,10 @@
       <inertia ixx="0.009499" ixy="0.0" ixz="0.0" iyy="0.000149" iyz="0.0" izz="0.009499" />
     </inertial>
   </link>
+
+  <!-- ====================================================== -->
+  <!-- Casco do Barco                                         -->
+  <!-- ====================================================== -->
   <link name="base_link">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -136,37 +149,31 @@
       </geometry>
     </visual>
     <collision>
-      <origin xyz="0.3873106837272644 -0.5531401634216309 0.028419017791748047" rpy="0.0 -0.0 0.0" />
-      <geometry>
-        <box size="0.3529626131057739 0.286358118057251 0.3340959846973419" />
-      </geometry>
-    </collision>
-    <collision>
-      <origin xyz="0.3873105049133301 0.7467493414878845 0.028419017791748047" rpy="0.0 -0.0 0.0" />
+      <origin xyz="0.3873105049133301 0.7467493414878845 0.028419017791748047" rpy="0.0 0.0 0.0" />
       <geometry>
         <box size="2.301753044128418 0.28635841608047485 0.3340959846973419" />
       </geometry>
     </collision>
     <collision>
-      <origin xyz="0.3873106837272644 -0.5555058121681213 0.028419017791748047" rpy="0.0 -0.0 0.0" />
+      <origin xyz="0.3873106837272644 -0.5555058121681213 0.028419017791748047" rpy="0.0 0.0 0.0" />
       <geometry>
         <box size="2.301753044128418 0.28635841608047485 0.3340959846973419" />
       </geometry>
     </collision>
     <collision>
-      <origin xyz="0.18785631656646729 0.09725365787744522 0.4897955358028412" rpy="0.0 -0.0 0.0" />
+      <origin xyz="0.18785631656646729 0.09725365787744522 0.4897955358028412" rpy="0.0 0.0 0.0" />
       <geometry>
         <box size="1.4632989168167114 0.5223059058189392 0.30197805166244507" />
       </geometry>
     </collision>
     <collision>
-      <origin xyz="0.8694584369659424 0.09467645734548569 0.11676308512687683" rpy="0.0 -0.0 0.0" />
+      <origin xyz="0.8694584369659424 0.09467645734548569 0.11676308512687683" rpy="0.0 0.0 0.0" />
       <geometry>
         <box size="0.0503227561712265 0.05002070218324661 0.4810780882835388" />
       </geometry>
     </collision>
     <collision>
-      <origin xyz="-0.5305383205413818 0.09467624872922897 0.1778692752122879" rpy="0.0 -0.0 0.0" />
+      <origin xyz="-0.5305383205413818 0.09467624872922897 0.1778692752122879" rpy="0.0 0.0 0.0" />
       <geometry>
         <box size="0.09711700677871704 0.05002070963382721 0.3231997489929199" />
       </geometry>
@@ -177,168 +184,149 @@
       <inertia ixx="37.182755" ixy="0.0" ixz="0.0" iyy="70.128464" iyz="0.0" izz="92.883435" />
     </inertial>
   </link>
+
+  <!-- ====================================================== -->
+  <!-- Juntas das Hélices                                     -->
+  <!-- ====================================================== -->
   <joint name="Engine_helice_1" type="continuous">
     <parent link="base_link" />
     <child link="Helice_1" />
-    <origin xyz="1.0098435878753662 -0.5541407465934753 0.6604171991348267" rpy="0.0 -0.0 0.0" />
+    <origin xyz="1.0098435878753662 -0.5541407465934753 0.6604171991348267" rpy="0.0 0.0 0.0" />
     <axis xyz="0 1 0" />
     <dynamics damping="0.05" friction="0.05" />
   </joint>
   <joint name="Engine_helice_2" type="continuous">
     <parent link="base_link" />
     <child link="Helice_2" />
-    <origin xyz="-0.34517043828964233 0.746247410774231 0.6604171991348267" rpy="0.0 -0.0 0.0" />
+    <origin xyz="-0.34517043828964233 0.746247410774231 0.6604171991348267" rpy="0.0 0.0 0.0" />
     <axis xyz="0 1 0" />
     <dynamics damping="0.05" friction="0.05" />
   </joint>
   <joint name="Engine_helice_3" type="continuous">
     <parent link="base_link" />
     <child link="Helice_3" />
-    <origin xyz="1.009843349456787 0.7462476491928101 0.6604171991348267" rpy="0.0 -0.0 0.0" />
+    <origin xyz="1.009843349456787 0.7462476491928101 0.6604171991348267" rpy="0.0 0.0 0.0" />
     <axis xyz="0 1 0" />
     <dynamics damping="0.05" friction="0.05" />
   </joint>
   <joint name="Engine_helice_4" type="continuous">
     <parent link="base_link" />
     <child link="Helice_4" />
-    <origin xyz="-0.345170259475708 -0.5537497997283936 0.6604171991348267" rpy="0.0 -0.0 0.0" />
+    <origin xyz="-0.345170259475708 -0.5537497997283936 0.6604171991348267" rpy="0.0 0.0 0.0" />
     <axis xyz="0 1 0" />
     <dynamics damping="0.05" friction="0.05" />
   </joint>
   <joint name="Engine_helice_5" type="continuous">
     <parent link="base_link" />
     <child link="Helice_5" />
-    <origin xyz="-0.7168807983398438 0.746498703956604 0.6604171991348267" rpy="0.0 -0.0 0.0" />
+    <origin xyz="-0.7168807983398438 0.746498703956604 0.6604171991348267" rpy="0.0 0.0 0.0" />
     <axis xyz="0 1 0" />
     <dynamics damping="0.05" friction="0.05" />
   </joint>
   <joint name="Engine_helice_6" type="continuous">
     <parent link="base_link" />
     <child link="Helice_6" />
-    <origin xyz="-0.7168805599212646 -0.5537497997283936 0.6604171991348267" rpy="0.0 -0.0 0.0" />
+    <origin xyz="-0.7168805599212646 -0.5537497997283936 0.6604171991348267" rpy="0.0 0.0 0.0" />
     <axis xyz="0 1 0" />
     <dynamics damping="0.05" friction="0.05" />
   </joint>
+
+  <!-- ====================================================== -->
+  <!-- Sensores                                               -->
+  <!-- ====================================================== -->
   <link name="imu_link">
-    
-    
     <inertial>
-      
-      
       <mass value="${imu_mass}" />
-      
-      
       <origin rpy="0 0 0" xyz="0 0 0" />
-      
-      
       <inertia ixx="0.00532259139" ixy="0" ixz="0" iyy="0.00363239675" iyz="-0.00067637070" izz="0.00234468738" />
-      
-    
     </inertial>
-    
-    
-    <sensor name="imu_sensor_inline" type="imu">
-      
-      
-      <pose>0 0 0 3.141593 0 0</pose>
-      
-    
-    </sensor>
-    
-  
   </link>
-  
-
-  
-  <joint name="imu_joint" type="revolute">
-    
-    
+  <joint name="imu_joint" type="fixed">
     <parent link="base_link" />
-    
-    
     <child link="imu_link" />
-    
-    
     <origin rpy="0 0 0" xyz="-0.01 0.002 0.082" />
-    
-    
-    <axis xyz="1 0 0" />
-    
-    
-    <limit effort="0.0" lower="0" upper="0" velocity="0" />
-    
-    
-    <dynamics damping="0.7" friction="0" spring_reference="0" spring_stiffness="0" />
-    
-  
   </joint>
-  
 
-  
-  <link name="mag_link">
-    
-    
+  <link name="gps_link">
     <inertial>
-      
-      
-      <origin xyz="0 0 0" rpy="3.141593 0 0" />
-      
-      
-      <mass value="${mag_mass}" />
-      
-      
+      <mass value="0.01" />
+      <origin rpy="0 0 0" xyz="0 0 0" />
       <inertia ixx="1e-05" ixy="0" ixz="0" iyy="1e-05" iyz="0" izz="1e-05" />
-      
-    
     </inertial>
-    
-    
-    <visual name="mag_vis">
-      
-      
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      
-      
-      <geometry>
-        <box size="0.01 0.01 0.01" />
-      </geometry>
-      
-    
-    </visual>
-    
-    
-    <collision name="mag_col">
-      
-      
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      
-      
-      <geometry>
-        <box size="0.01 0.01 0.01" />
-      </geometry>
-      
-    
-    </collision>
-    
-  
   </link>
-  
-  
-  <joint name="mag_joint" type="fixed">
-    
-    
+  <joint name="gps_joint" type="fixed">
     <parent link="base_link" />
-    
-    
-    <child link="mag_link" />
-    
-    
-    <origin xyz="0.1 0.1 0.1" rpy="0 0 0" />
-    
-  
+    <child link="gps_link" />
+    <origin xyz="0 0 0.15" rpy="0 0 0" />
   </joint>
-  
 
-  
-  
-  <gazebo><plugin filename="gz-sim-velocity-control-system" name="gz::sim::systems::VelocityControl"><topic>/cmd_vel</topic><link_name>base_link</link_name></plugin><plugin filename="gz-sim-pose-publisher-system" name="gz::sim::systems::PosePublisher"><publish_link_pose>true</publish_link_pose><use_pose_vector_msg>true</use_pose_vector_msg><static_publisher>true</static_publisher><static_update_frequency>10</static_update_frequency></plugin></gazebo></robot>
+  <link name="mag_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="${mag_mass}" />
+      <inertia ixx="1e-05" ixy="0" ixz="0" iyy="1e-05" iyz="0" izz="1e-05" />
+    </inertial>
+    <visual name="mag_vis">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><box size="0.01 0.01 0.01" /></geometry>
+    </visual>
+    <collision name="mag_col">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><box size="0.01 0.01 0.01" /></geometry>
+    </collision>
+  </link>
+  <joint name="mag_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="mag_link" />
+    <origin xyz="0.1 0.1 0.1" rpy="0 0 0" />
+  </joint>
+
+  <!-- ====================================================== -->
+  <!-- Sensores Gazebo (referências de link)                  -->
+  <!-- ====================================================== -->
+  <gazebo reference="imu_link">
+    <sensor name="imu_sensor" type="imu">
+      <always_on>1</always_on>
+      <update_rate>50</update_rate>
+      <topic>imu</topic>
+      <gz_frame_id>imu_link</gz_frame_id>
+      <imu>
+        <angular_velocity><x><noise type="gaussian"><mean>0</mean><stddev>0.009</stddev></noise></x><y><noise type="gaussian"><mean>0</mean><stddev>0.009</stddev></noise></y><z><noise type="gaussian"><mean>0</mean><stddev>0.009</stddev></noise></z></angular_velocity>
+        <linear_acceleration><x><noise type="gaussian"><mean>0</mean><stddev>0.1</stddev></noise></x><y><noise type="gaussian"><mean>0</mean><stddev>0.1</stddev></noise></y><z><noise type="gaussian"><mean>0</mean><stddev>0.1</stddev></noise></z></linear_acceleration>
+      </imu>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="gps_link">
+    <sensor name="navsat_sensor" type="navsat">
+      <always_on>1</always_on>
+      <update_rate>5</update_rate>
+      <topic>navsat</topic>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="mag_link">
+    <sensor name="magnetometer_sensor" type="magnetometer">
+      <always_on>1</always_on>
+      <update_rate>20</update_rate>
+      <topic>magnetometer</topic>
+    </sensor>
+  </gazebo>
+
+  <!-- ====================================================== -->
+  <!-- Plugins de Controle                                    -->
+  <!-- ====================================================== -->
+  <gazebo>
+    <plugin filename="gz-sim-velocity-control-system" name="gz::sim::systems::VelocityControl">
+      <topic>/cmd_vel</topic>
+      <link_name>base_link</link_name>
+    </plugin>
+    <plugin filename="gz-sim-pose-publisher-system" name="gz::sim::systems::PosePublisher">
+      <publish_link_pose>true</publish_link_pose>
+      <use_pose_vector_msg>true</use_pose_vector_msg>
+      <static_publisher>true</static_publisher>
+      <static_update_frequency>10</static_update_frequency>
+    </plugin>
+  </gazebo>
+
+</robot>
