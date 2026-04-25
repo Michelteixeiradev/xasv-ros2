@@ -35,25 +35,37 @@ Criar uma base funcional em ROS2 (Jazzy) para o projeto xasv-sim, focando no flu
 - ArduPilot: `sim_vehicle.py -v Rover -f rover --console --map --out=udp:127.0.0.1:14555`
 - QGC: `~/QGroundControl-x86_64.AppImage`
 
-## FASE 4: Integração de Sensores e Feedback de Autonomia (Próximos Passos)
+## FASE 4: Ambiente Customizado (Concluída)
+
+**Status:** Validada com sucesso.
+
+### Escopo Realizado
+
+- [x] Criação do mundo base `madeira_river_simple.sdf` portado do ambiente 3D original.
+- [x] Configuração de iluminação direcional, terreno estático sem atrito aquático, margens do rio e obstáculos (troncos/boias).
+- [x] Adição do plugin `SceneBroadcaster` e adaptação do `sim.launch.py` para carregamento de múltiplos ambientes via argumento `world:=`.
+
+## FASE 5: Robô Customizado "migbot" (Concluída)
+
+**Status:** Validada com sucesso em 25/04/2026.
+
+### Escopo Realizado
+
+- [x] Transferência e descompactação das malhas 3D reais (arquivos `.dae`, texturas e colisões).
+- [x] Reestruturação do pacote `asv_description` para padrões ament/ROS 2.
+- [x] Limpeza profunda de plugins legados incompatíveis no `migbot2.urdf.xacro`.
+- [x] Injeção de `VelocityControl` para permitir teleoperação provisória baseada no `base_link`.
+- [x] Inserção de Flutuabilidade (`Buoyancy` Plugin) no `madeira_river_simple.sdf` para interação física do casco na água.
+- [x] Lançamento coordenado e spawn em posição segura do rio (`Y=25.0`), flutuando sem fricção com o fundo.
+
+## FASE 6: Integração Complexa (Próximos Passos)
 
 ### Escopo Técnico
 
-- Fechamento de Malha (Feedback): Adicionar plugins de GPS e IMU ao dummy_boat.urdf para que o ArduPilot receba a posição real do Gazebo.
-- Ponte de Telemetria: Implementar no nó de ponte o envio de pacotes MAVLink de volta para o SITL (permitindo navegação autônoma por Waypoints).
-- Percepção Avançada:
-  - Adicionar LiDAR Livox e Câmera RealSense D435 ao URDF.
-  - Configurar ros_gz_bridge para transportar PointClouds e Imagens para o ROS 2.
-- Visualização: Configuração do RViz2 para monitoramento dos sensores em tempo real.
-
-## FASE 5: Migração da Política de Autonomia (IA)
-
-### Escopo Previsto
-
-- Migrar o nó huitl_policy_node de ROS 1 para ROS 2 (Python).
-- Implementar a carga e inferência do modelo PyTorch (.pt) dentro do ambiente ROS 2 Jazzy.
-- Transição para comandos de atitude/posição via MAVLink (SET_POSITION_TARGET_LOCAL_NED).
-- Teste de ciclo fechado: Percepção (LiDAR/Câmera) -> Política IA -> Comando MAVLink -> Movimento.
+- Adição dos modelos de motores e hidrodinâmica avançada do Gazebo Harmonic para substituir o `VelocityControl`.
+- Configuração dos sensores do robô (LiDAR Livox, Ping360, GPS e IMU) com os plugins de sensores do Harmonic e bridges.
+- Interligar o fluxo ArduPilot -> ROS -> Motores do Gazebo (SITL real controlando as hélices).
+- Preparar integração final da Política Neural HUITL do MAVLink para as trajetórias autônomas.
 
 ## Notas de Implementação da Fase 3
 

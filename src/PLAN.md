@@ -42,19 +42,32 @@ Criar uma base funcional em ROS2 (Jazzy) para o projeto xasv-sim, focando no flu
 
 ---
 
-## FASE 4: Integração de Sensores e Expansão da Simulação (Próximos Passos)
+## FASE 4: Ambiente Customizado (Concluída)
 
-### Escopo Previsto
-- Adicionar sensores simulados ao modelo (LiDAR Livox, Sonar Ping360 e RealSense D435).
-- Configurar pontes de dados (`ros_gz_bridge`) para publicação de tópicos de percepção.
-- Validar a visualização dos dados dos sensores no RViz2.
+### Escopo Realizado
+- [x] Configurar um mundo realista no Gazebo Harmonic (`madeira_river_simple.sdf`).
+- [x] Adicionar geometria do rio e assets visuais básicos.
+- [x] Testar compatibilidade do mundo no Gazebo Harmonic e adaptar shaders/plugins.
+- [x] Atualizar launch file para permitir seleção dinâmica de mundos.
 
 ---
 
-## FASE 5: Migração da Política de Autonomia (Inteligência Artificial)
+## FASE 5: Robô Customizado "migbot" (Concluída)
+
+### Escopo Realizado
+- [x] Mover as meshes (geometria 3D e colisão) do ROS 1 para o novo pacote `asv_description`.
+- [x] Limpar `migbot2.urdf.xacro` de todos os plugins incompatíveis do Gazebo Classic.
+- [x] Injetar controle cinemático provisório `VelocityControl` e plugin de `Buoyancy` no mundo.
+- [x] Ajustar coordenadas de spawn no Launch (`Y=25.0`) para garantir flutuabilidade funcional.
+- [x] Validar que o barco autêntico flutua no Rio Madeira e responde aos comandos `/cmd_vel` via ROS 2.
+
+---
+
+## FASE 6: Integração Complexa (Plugins, Sensores e ArduPilot) (Próximos Passos)
 
 ### Escopo Previsto
-- Migrar o nó `huitl_policy_node` de ROS 1 para ROS 2 (Python).
-- Implementar a carga e inferência do modelo PyTorch (`.pt`) dentro do ambiente ROS 2 Jazzy.
-- Adaptar o sistema de saída: transitar do antigo `rc_override` para comandos de velocidade/atitude via MAVLink (`SET_POSITION_TARGET_LOCAL_NED` ou similar).
-- Testar o ciclo fechado: Percepção -> Política (IA) -> Comando MAVLink -> Movimento no SITL.
+- Adicionar os plugins nativos de Hidrodinâmica avançada do Gazebo Harmonic para substituir o controle cinemático irrealista.
+- Re-conectar a ponte do MAVLink (desativar `/cmd_vel` genérico e ler motores/thrusters).
+- Adicionar os sensores essenciais do robô (LiDAR Livox, Ping360, GPS, IMU, Câmera D435) no URDF.
+- Fechar a malha completa: ArduPilot controlando os motores de acordo com a física e os sensores simulados no Harmonic.
+- Preparar terreno para inferência da Política de IA.
