@@ -11,6 +11,10 @@
             name="gz::sim::systems::UserCommands" />
     <plugin filename="gz-sim-scene-broadcaster-system"
             name="gz::sim::systems::SceneBroadcaster" />
+    <plugin filename="gz-sim-buoyancy-system"
+            name="gz::sim::systems::Buoyancy">
+      <uniform_fluid_density>1000</uniform_fluid_density>
+    </plugin>
 
     <!-- ============================================================ -->
     <!-- Física (DART — padrão do Harmonic)                           -->

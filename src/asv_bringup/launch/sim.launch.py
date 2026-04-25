@@ -1,5 +1,5 @@
 import os
-from ament_index_python.packages import get_package_share_directory
+from ament_index_python.packages import get_package_share_directory, get_package_prefix
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, OpaqueFunction, SetEnvironmentVariable
 from launch.substitutions import EnvironmentVariable, LaunchConfiguration
@@ -18,10 +18,10 @@ def _launch_setup(context, *args, **kwargs):
     if not os.path.isabs(world_name):
         world_file = os.path.join(pkg_asv_gazebo, 'worlds', world_name)
 
-    urdf_file = os.path.join(pkg_asv_description, 'urdf', 'dummy_boat.urdf')
+    import subprocess
+    xacro_file = os.path.join(pkg_asv_description, 'urdf', 'migbot.urdf.xacro')
 
-    with open(urdf_file, 'r') as infp:
-        robot_desc = infp.read()
+    robot_desc = subprocess.check_output(['xacro', xacro_file]).decode('utf-8')
 
     gz_args = f'-r {world_file}'
     if headless:
@@ -35,6 +35,7 @@ def _launch_setup(context, *args, **kwargs):
         pkg_asv_gazebo,
         os.path.join(pkg_asv_gazebo, 'models'),
         os.path.join(pkg_asv_gazebo, 'worlds'),
+        os.path.join(get_package_prefix('asv_description'), 'share')
     ])
 
     set_resource_path = SetEnvironmentVariable(
@@ -67,10 +68,10 @@ def _launch_setup(context, *args, **kwargs):
     spawn_entity = Node(
         package='ros_gz_sim',
         executable='create',
-        arguments=['-name', 'dummy_boat',
+        arguments=['-name', 'migbot',
                    '-string', robot_desc,
                    '-x', '0.0',
-                   '-y', '0.0',
+                   '-y', '25.0',
                    '-z', '1.5'], 
         output='screen'
     )
@@ -92,7 +93,7 @@ def _launch_setup(context, *args, **kwargs):
             f'{pose_topic}@geometry_msgs/msg/PoseArray[gz.msgs.Pose_V'
         ],
         remappings=[
-            (pose_topic, '/model/dummy_boat/pose'),
+            (pose_topic, '/model/migbot/pose'),
         ],
         output='screen'
     )

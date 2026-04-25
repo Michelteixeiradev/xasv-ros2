@@ -1,0 +1,344 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="migbot2">
+  <xacro:arg name="namespace" default="migbot2" />
+  <xacro:arg name="ardupilot" default="true" />
+  <xacro:property name="imu_mass" value="0.002" />
+  <xacro:property name="mag_mass" value="0.001" />
+  <xacro:property name="fluid_density" value="1025.0" />
+  <xacro:property name="fluid_level" value="0.0001" />
+  <xacro:property name="hull_radius" value="10.6" />
+  <xacro:property name="boat_width" value="1.848" />
+  <xacro:property name="boat_length" value="2.3" />
+  <xacro:property name="wave_model" value="0" />
+  <xacro:property name="ref_lat" value="-8.798638" />
+  <xacro:property name="ref_lon" value="-63.952087" />
+  <xacro:property name="ref_alt" value="58" />
+  <xacro:property name="S" value="1.0" />
+  <link name="Helice_1">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://asv_description/urdf/meshes/helice.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="1.5002675354480743e-05 -4.023313522338867e-07 1.825392246246338e-07" rpy="-1.5707963267948966 0.0 0.0" />
+      <geometry>
+        <cylinder radius="0.03959999978542328" length="0.7714560329914093" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="1.5002675354480743e-05 -4.023313522338867e-07 1.825392246246338e-07" rpy="0 0 0" />
+      <mass value="0.190030" />
+      <inertia ixx="0.009499" ixy="0.0" ixz="0.0" iyy="0.000149" iyz="0.0" izz="0.009499" />
+    </inertial>
+  </link>
+  <link name="Helice_2">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://asv_description/urdf/meshes/helice.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="1.5002675354480743e-05 -4.023313522338867e-07 1.825392246246338e-07" rpy="-1.5707963267948966 0.0 0.0" />
+      <geometry>
+        <cylinder radius="0.03959999978542328" length="0.7714560329914093" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="1.5002675354480743e-05 -4.023313522338867e-07 1.825392246246338e-07" rpy="0 0 0" />
+      <mass value="0.190030" />
+      <inertia ixx="0.009499" ixy="0.0" ixz="0.0" iyy="0.000149" iyz="0.0" izz="0.009499" />
+    </inertial>
+  </link>
+  <link name="Helice_3">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://asv_description/urdf/meshes/helice.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="1.5002675354480743e-05 -4.023313522338867e-07 1.825392246246338e-07" rpy="-1.5707963267948966 0.0 0.0" />
+      <geometry>
+        <cylinder radius="0.03959999978542328" length="0.7714560329914093" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="1.5002675354480743e-05 -4.023313522338867e-07 1.825392246246338e-07" rpy="0 0 0" />
+      <mass value="0.190030" />
+      <inertia ixx="0.009499" ixy="0.0" ixz="0.0" iyy="0.000149" iyz="0.0" izz="0.009499" />
+    </inertial>
+  </link>
+  <link name="Helice_4">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://asv_description/urdf/meshes/helice.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-1.5002675354480743e-05 4.023313522338867e-07 1.825392246246338e-07" rpy="-1.5707963267948966 0.0 0.0" />
+      <geometry>
+        <cylinder radius="0.03959999978542328" length="0.7714560329914093" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-1.5002675354480743e-05 4.023313522338867e-07 1.825392246246338e-07" rpy="0 0 0" />
+      <mass value="0.190030" />
+      <inertia ixx="0.009499" ixy="0.0" ixz="0.0" iyy="0.000149" iyz="0.0" izz="0.009499" />
+    </inertial>
+  </link>
+  <link name="Helice_5">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://asv_description/urdf/meshes/helice.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="1.5002675354480743e-05 -4.023313522338867e-07 1.825392246246338e-07" rpy="-1.5707963267948966 0.0 0.0" />
+      <geometry>
+        <cylinder radius="0.03959999978542328" length="0.7714560329914093" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="1.5002675354480743e-05 -4.023313522338867e-07 1.825392246246338e-07" rpy="0 0 0" />
+      <mass value="0.190030" />
+      <inertia ixx="0.009499" ixy="0.0" ixz="0.0" iyy="0.000149" iyz="0.0" izz="0.009499" />
+    </inertial>
+  </link>
+  <link name="Helice_6">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://asv_description/urdf/meshes/helice.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="1.5002675354480743e-05 -4.023313522338867e-07 1.825392246246338e-07" rpy="-1.5707963267948966 0.0 0.0" />
+      <geometry>
+        <cylinder radius="0.03959999978542328" length="0.7714560329914093" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="1.5002675354480743e-05 -4.023313522338867e-07 1.825392246246338e-07" rpy="0 0 0" />
+      <mass value="0.190030" />
+      <inertia ixx="0.009499" ixy="0.0" ixz="0.0" iyy="0.000149" iyz="0.0" izz="0.009499" />
+    </inertial>
+  </link>
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://asv_description/urdf/meshes/base_link.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.3873106837272644 -0.5531401634216309 0.028419017791748047" rpy="0.0 -0.0 0.0" />
+      <geometry>
+        <box size="0.3529626131057739 0.286358118057251 0.3340959846973419" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.3873105049133301 0.7467493414878845 0.028419017791748047" rpy="0.0 -0.0 0.0" />
+      <geometry>
+        <box size="2.301753044128418 0.28635841608047485 0.3340959846973419" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.3873106837272644 -0.5555058121681213 0.028419017791748047" rpy="0.0 -0.0 0.0" />
+      <geometry>
+        <box size="2.301753044128418 0.28635841608047485 0.3340959846973419" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.18785631656646729 0.09725365787744522 0.4897955358028412" rpy="0.0 -0.0 0.0" />
+      <geometry>
+        <box size="1.4632989168167114 0.5223059058189392 0.30197805166244507" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.8694584369659424 0.09467645734548569 0.11676308512687683" rpy="0.0 -0.0 0.0" />
+      <geometry>
+        <box size="0.0503227561712265 0.05002070218324661 0.4810780882835388" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="-0.5305383205413818 0.09467624872922897 0.1778692752122879" rpy="0.0 -0.0 0.0" />
+      <geometry>
+        <box size="0.09711700677871704 0.05002070963382721 0.3231997489929199" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0.38731059432029724 0.09562176465988159 0.2510777935385704" rpy="0 0 0" />
+      <mass value="142.500037" />
+      <inertia ixx="37.182755" ixy="0.0" ixz="0.0" iyy="70.128464" iyz="0.0" izz="92.883435" />
+    </inertial>
+  </link>
+  <joint name="Engine_helice_1" type="continuous">
+    <parent link="base_link" />
+    <child link="Helice_1" />
+    <origin xyz="1.0098435878753662 -0.5541407465934753 0.6604171991348267" rpy="0.0 -0.0 0.0" />
+    <axis xyz="0 1 0" />
+    <dynamics damping="0.05" friction="0.05" />
+  </joint>
+  <joint name="Engine_helice_2" type="continuous">
+    <parent link="base_link" />
+    <child link="Helice_2" />
+    <origin xyz="-0.34517043828964233 0.746247410774231 0.6604171991348267" rpy="0.0 -0.0 0.0" />
+    <axis xyz="0 1 0" />
+    <dynamics damping="0.05" friction="0.05" />
+  </joint>
+  <joint name="Engine_helice_3" type="continuous">
+    <parent link="base_link" />
+    <child link="Helice_3" />
+    <origin xyz="1.009843349456787 0.7462476491928101 0.6604171991348267" rpy="0.0 -0.0 0.0" />
+    <axis xyz="0 1 0" />
+    <dynamics damping="0.05" friction="0.05" />
+  </joint>
+  <joint name="Engine_helice_4" type="continuous">
+    <parent link="base_link" />
+    <child link="Helice_4" />
+    <origin xyz="-0.345170259475708 -0.5537497997283936 0.6604171991348267" rpy="0.0 -0.0 0.0" />
+    <axis xyz="0 1 0" />
+    <dynamics damping="0.05" friction="0.05" />
+  </joint>
+  <joint name="Engine_helice_5" type="continuous">
+    <parent link="base_link" />
+    <child link="Helice_5" />
+    <origin xyz="-0.7168807983398438 0.746498703956604 0.6604171991348267" rpy="0.0 -0.0 0.0" />
+    <axis xyz="0 1 0" />
+    <dynamics damping="0.05" friction="0.05" />
+  </joint>
+  <joint name="Engine_helice_6" type="continuous">
+    <parent link="base_link" />
+    <child link="Helice_6" />
+    <origin xyz="-0.7168805599212646 -0.5537497997283936 0.6604171991348267" rpy="0.0 -0.0 0.0" />
+    <axis xyz="0 1 0" />
+    <dynamics damping="0.05" friction="0.05" />
+  </joint>
+  <link name="imu_link">
+    
+    
+    <inertial>
+      
+      
+      <mass value="${imu_mass}" />
+      
+      
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      
+      
+      <inertia ixx="0.00532259139" ixy="0" ixz="0" iyy="0.00363239675" iyz="-0.00067637070" izz="0.00234468738" />
+      
+    
+    </inertial>
+    
+    
+    <sensor name="imu_sensor_inline" type="imu">
+      
+      
+      <pose>0 0 0 3.141593 0 0</pose>
+      
+    
+    </sensor>
+    
+  
+  </link>
+  
+
+  
+  <joint name="imu_joint" type="revolute">
+    
+    
+    <parent link="base_link" />
+    
+    
+    <child link="imu_link" />
+    
+    
+    <origin rpy="0 0 0" xyz="-0.01 0.002 0.082" />
+    
+    
+    <axis xyz="1 0 0" />
+    
+    
+    <limit effort="0.0" lower="0" upper="0" velocity="0" />
+    
+    
+    <dynamics damping="0.7" friction="0" spring_reference="0" spring_stiffness="0" />
+    
+  
+  </joint>
+  
+
+  
+  <link name="mag_link">
+    
+    
+    <inertial>
+      
+      
+      <origin xyz="0 0 0" rpy="3.141593 0 0" />
+      
+      
+      <mass value="${mag_mass}" />
+      
+      
+      <inertia ixx="1e-05" ixy="0" ixz="0" iyy="1e-05" iyz="0" izz="1e-05" />
+      
+    
+    </inertial>
+    
+    
+    <visual name="mag_vis">
+      
+      
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      
+      
+      <geometry>
+        <box size="0.01 0.01 0.01" />
+      </geometry>
+      
+    
+    </visual>
+    
+    
+    <collision name="mag_col">
+      
+      
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      
+      
+      <geometry>
+        <box size="0.01 0.01 0.01" />
+      </geometry>
+      
+    
+    </collision>
+    
+  
+  </link>
+  
+  
+  <joint name="mag_joint" type="fixed">
+    
+    
+    <parent link="base_link" />
+    
+    
+    <child link="mag_link" />
+    
+    
+    <origin xyz="0.1 0.1 0.1" rpy="0 0 0" />
+    
+  
+  </joint>
+  
+
+  
+  
+  <gazebo><plugin filename="gz-sim-velocity-control-system" name="gz::sim::systems::VelocityControl"><topic>/cmd_vel</topic><link_name>base_link</link_name></plugin><plugin filename="gz-sim-pose-publisher-system" name="gz::sim::systems::PosePublisher"><publish_link_pose>true</publish_link_pose><use_pose_vector_msg>true</use_pose_vector_msg><static_publisher>true</static_publisher><static_update_frequency>10</static_update_frequency></plugin></gazebo></robot>
