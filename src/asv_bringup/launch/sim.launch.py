@@ -62,7 +62,7 @@ def _launch_setup(context, *args, **kwargs):
         package='ros_gz_sim',
         executable='create',
         arguments=['-name', 'migbot', '-string', robot_desc,
-                   '-x', '100.0', '-y', '20.0', '-z', '0.3'],
+                   '-x', '100.0', '-y', '20.0', '-z', '0.1'],
         output='screen'
     )
 
@@ -73,8 +73,13 @@ def _launch_setup(context, *args, **kwargs):
         package='ros_gz_bridge',
         executable='parameter_bridge',
         arguments=[
-            # Controle de Movimento (ROS -> Gazebo)
-            '/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist',
+            # Motores / Thrusters (ROS -> Gazebo)
+            '/model/migbot/joint/Engine_helice_1/cmd_thrust@std_msgs/msg/Float64]gz.msgs.Double',
+            '/model/migbot/joint/Engine_helice_2/cmd_thrust@std_msgs/msg/Float64]gz.msgs.Double',
+            '/model/migbot/joint/Engine_helice_3/cmd_thrust@std_msgs/msg/Float64]gz.msgs.Double',
+            '/model/migbot/joint/Engine_helice_4/cmd_thrust@std_msgs/msg/Float64]gz.msgs.Double',
+            '/model/migbot/joint/Engine_helice_5/cmd_thrust@std_msgs/msg/Float64]gz.msgs.Double',
+            '/model/migbot/joint/Engine_helice_6/cmd_thrust@std_msgs/msg/Float64]gz.msgs.Double',
             # Telemetria de Posição (Gazebo -> ROS)
             f'/world/{world_base}/pose/info@geometry_msgs/msg/PoseArray[gz.msgs.Pose_V',
             # Sensores (Gazebo -> ROS)

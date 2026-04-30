@@ -25,12 +25,6 @@
         <mesh filename="package://asv_description/urdf/meshes/helice.dae" />
       </geometry>
     </visual>
-    <collision>
-      <origin xyz="1.5002675354480743e-05 -4.023313522338867e-07 1.825392246246338e-07" rpy="-1.5707963267948966 0.0 0.0" />
-      <geometry>
-        <cylinder radius="0.03959999978542328" length="0.7714560329914093" />
-      </geometry>
-    </collision>
     <inertial>
       <origin xyz="1.5002675354480743e-05 -4.023313522338867e-07 1.825392246246338e-07" rpy="0 0 0" />
       <mass value="0.190030" />
@@ -45,12 +39,6 @@
         <mesh filename="package://asv_description/urdf/meshes/helice.dae" />
       </geometry>
     </visual>
-    <collision>
-      <origin xyz="1.5002675354480743e-05 -4.023313522338867e-07 1.825392246246338e-07" rpy="-1.5707963267948966 0.0 0.0" />
-      <geometry>
-        <cylinder radius="0.03959999978542328" length="0.7714560329914093" />
-      </geometry>
-    </collision>
     <inertial>
       <origin xyz="1.5002675354480743e-05 -4.023313522338867e-07 1.825392246246338e-07" rpy="0 0 0" />
       <mass value="0.190030" />
@@ -65,12 +53,6 @@
         <mesh filename="package://asv_description/urdf/meshes/helice.dae" />
       </geometry>
     </visual>
-    <collision>
-      <origin xyz="1.5002675354480743e-05 -4.023313522338867e-07 1.825392246246338e-07" rpy="-1.5707963267948966 0.0 0.0" />
-      <geometry>
-        <cylinder radius="0.03959999978542328" length="0.7714560329914093" />
-      </geometry>
-    </collision>
     <inertial>
       <origin xyz="1.5002675354480743e-05 -4.023313522338867e-07 1.825392246246338e-07" rpy="0 0 0" />
       <mass value="0.190030" />
@@ -85,12 +67,6 @@
         <mesh filename="package://asv_description/urdf/meshes/helice.dae" />
       </geometry>
     </visual>
-    <collision>
-      <origin xyz="-1.5002675354480743e-05 4.023313522338867e-07 1.825392246246338e-07" rpy="-1.5707963267948966 0.0 0.0" />
-      <geometry>
-        <cylinder radius="0.03959999978542328" length="0.7714560329914093" />
-      </geometry>
-    </collision>
     <inertial>
       <origin xyz="-1.5002675354480743e-05 4.023313522338867e-07 1.825392246246338e-07" rpy="0 0 0" />
       <mass value="0.190030" />
@@ -105,12 +81,6 @@
         <mesh filename="package://asv_description/urdf/meshes/helice.dae" />
       </geometry>
     </visual>
-    <collision>
-      <origin xyz="1.5002675354480743e-05 -4.023313522338867e-07 1.825392246246338e-07" rpy="-1.5707963267948966 0.0 0.0" />
-      <geometry>
-        <cylinder radius="0.03959999978542328" length="0.7714560329914093" />
-      </geometry>
-    </collision>
     <inertial>
       <origin xyz="1.5002675354480743e-05 -4.023313522338867e-07 1.825392246246338e-07" rpy="0 0 0" />
       <mass value="0.190030" />
@@ -125,12 +95,6 @@
         <mesh filename="package://asv_description/urdf/meshes/helice.dae" />
       </geometry>
     </visual>
-    <collision>
-      <origin xyz="1.5002675354480743e-05 -4.023313522338867e-07 1.825392246246338e-07" rpy="-1.5707963267948966 0.0 0.0" />
-      <geometry>
-        <cylinder radius="0.03959999978542328" length="0.7714560329914093" />
-      </geometry>
-    </collision>
     <inertial>
       <origin xyz="1.5002675354480743e-05 -4.023313522338867e-07 1.825392246246338e-07" rpy="0 0 0" />
       <mass value="0.190030" />
@@ -148,38 +112,29 @@
         <mesh filename="package://asv_description/urdf/meshes/base_link.dae" />
       </geometry>
     </visual>
+    <!-- Pontão Esquerdo (bombordo) -->
     <collision>
-      <origin xyz="0.3873105049133301 0.7467493414878845 0.028419017791748047" rpy="0.0 0.0 0.0" />
+      <origin xyz="0.387 0.747 0.028" rpy="0 0 0" />
       <geometry>
-        <box size="2.301753044128418 0.28635841608047485 0.3340959846973419" />
+        <box size="2.3 0.286 0.334" />
       </geometry>
     </collision>
+    <!-- Pontão Direito (estibordo) -->
     <collision>
-      <origin xyz="0.3873106837272644 -0.5555058121681213 0.028419017791748047" rpy="0.0 0.0 0.0" />
+      <origin xyz="0.387 -0.555 0.028" rpy="0 0 0" />
       <geometry>
-        <box size="2.301753044128418 0.28635841608047485 0.3340959846973419" />
+        <box size="2.3 0.286 0.334" />
       </geometry>
     </collision>
+    <!-- Deck (plataforma central) -->
     <collision>
-      <origin xyz="0.18785631656646729 0.09725365787744522 0.4897955358028412" rpy="0.0 0.0 0.0" />
+      <origin xyz="0.188 0.097 0.49" rpy="0 0 0" />
       <geometry>
-        <box size="1.4632989168167114 0.5223059058189392 0.30197805166244507" />
-      </geometry>
-    </collision>
-    <collision>
-      <origin xyz="0.8694584369659424 0.09467645734548569 0.11676308512687683" rpy="0.0 0.0 0.0" />
-      <geometry>
-        <box size="0.0503227561712265 0.05002070218324661 0.4810780882835388" />
-      </geometry>
-    </collision>
-    <collision>
-      <origin xyz="-0.5305383205413818 0.09467624872922897 0.1778692752122879" rpy="0.0 0.0 0.0" />
-      <geometry>
-        <box size="0.09711700677871704 0.05002070963382721 0.3231997489929199" />
+        <box size="1.463 0.522 0.302" />
       </geometry>
     </collision>
     <inertial>
-      <origin xyz="0.38731059432029724 0.09562176465988159 0.2510777935385704" rpy="0 0 0" />
+      <origin xyz="0.387 0.095 0.15" rpy="0 0 0" />
       <mass value="142.500037" />
       <inertia ixx="37.182755" ixy="0.0" ixz="0.0" iyy="70.128464" iyz="0.0" izz="92.883435" />
     </inertial>
@@ -314,13 +269,75 @@
   </gazebo>
 
   <!-- ====================================================== -->
-  <!-- Plugins de Controle                                    -->
+  <!-- Plugins de Controle e Dinâmica                         -->
   <!-- ====================================================== -->
   <gazebo>
-    <plugin filename="gz-sim-velocity-control-system" name="gz::sim::systems::VelocityControl">
-      <topic>/cmd_vel</topic>
-      <link_name>base_link</link_name>
+    <!-- ========== THRUSTERS (6 hélices) ========== -->
+    <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+      <namespace>migbot</namespace>
+      <joint_name>Engine_helice_1</joint_name>
+      <thrust_coefficient>0.004422</thrust_coefficient>
+      <fluid_density>997.8</fluid_density>
+      <propeller_diameter>0.08</propeller_diameter>
+      <use_angvel_cmd>false</use_angvel_cmd>
     </plugin>
+    <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+      <namespace>migbot</namespace>
+      <joint_name>Engine_helice_2</joint_name>
+      <thrust_coefficient>0.004422</thrust_coefficient>
+      <fluid_density>997.8</fluid_density>
+      <propeller_diameter>0.08</propeller_diameter>
+      <use_angvel_cmd>false</use_angvel_cmd>
+    </plugin>
+    <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+      <namespace>migbot</namespace>
+      <joint_name>Engine_helice_3</joint_name>
+      <thrust_coefficient>0.004422</thrust_coefficient>
+      <fluid_density>997.8</fluid_density>
+      <propeller_diameter>0.08</propeller_diameter>
+      <use_angvel_cmd>false</use_angvel_cmd>
+    </plugin>
+    <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+      <namespace>migbot</namespace>
+      <joint_name>Engine_helice_4</joint_name>
+      <thrust_coefficient>0.004422</thrust_coefficient>
+      <fluid_density>997.8</fluid_density>
+      <propeller_diameter>0.08</propeller_diameter>
+      <use_angvel_cmd>false</use_angvel_cmd>
+    </plugin>
+    <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+      <namespace>migbot</namespace>
+      <joint_name>Engine_helice_5</joint_name>
+      <thrust_coefficient>0.004422</thrust_coefficient>
+      <fluid_density>997.8</fluid_density>
+      <propeller_diameter>0.08</propeller_diameter>
+      <use_angvel_cmd>false</use_angvel_cmd>
+    </plugin>
+    <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+      <namespace>migbot</namespace>
+      <joint_name>Engine_helice_6</joint_name>
+      <thrust_coefficient>0.004422</thrust_coefficient>
+      <fluid_density>997.8</fluid_density>
+      <propeller_diameter>0.08</propeller_diameter>
+      <use_angvel_cmd>false</use_angvel_cmd>
+    </plugin>
+
+    <!-- ========== HIDRODINÂMICA (SNAME) ========== -->
+    <plugin filename="gz-sim-hydrodynamics-system" name="gz::sim::systems::Hydrodynamics">
+      <link_name>base_link</link_name>
+      <xU>-51.3</xU>
+      <yV>-40.0</yV>
+      <zW>-500.0</zW>
+      <kP>-50.0</kP>
+      <mQ>-50.0</mQ>
+      <nR>-400.0</nR>
+      <xUabsU>-72.4</xUabsU>
+      <yVabsV>0.0</yVabsV>
+      <nRabsR>0.0</nRabsR>
+      <water_density>997.8</water_density>
+    </plugin>
+
+    <!-- Publicador de Pose -->
     <plugin filename="gz-sim-pose-publisher-system" name="gz::sim::systems::PosePublisher">
       <publish_link_pose>true</publish_link_pose>
       <use_pose_vector_msg>true</use_pose_vector_msg>

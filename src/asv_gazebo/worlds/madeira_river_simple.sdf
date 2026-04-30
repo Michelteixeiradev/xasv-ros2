@@ -13,7 +13,14 @@
             name="gz::sim::systems::SceneBroadcaster" />
     <plugin filename="gz-sim-buoyancy-system"
             name="gz::sim::systems::Buoyancy">
-      <uniform_fluid_density>1000</uniform_fluid_density>
+      <graded_buoyancy>
+        <default_density>1000</default_density>
+        <density_change>
+          <above_depth>0</above_depth>
+          <density>0</density>
+        </density_change>
+      </graded_buoyancy>
+      <surface>0 0 1 0</surface>
     </plugin>
 
     <!-- ============================================================ -->
