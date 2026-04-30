@@ -63,11 +63,29 @@ Criar uma base funcional em ROS2 (Jazzy) para o projeto xasv-sim, focando no flu
 
 ---
 
-## FASE 6: Integração Complexa (Plugins, Sensores e ArduPilot) (Próximos Passos)
+## FASE 6: Integração Complexa (Sensores e Física) (Concluída)
+
+### Escopo Realizado
+- [x] **Fase 6A (Sensores):** Inclusão de IMU, GPS e Magnetômetro no URDF, com bridges ROS 2 configuradas para leitura das informações do Gazebo.
+- [x] **Fase 6B (Dinâmica Real):** 
+  - Remoção do `VelocityControl` (cinemático).
+  - Substituição da flutuabilidade (`uniform_fluid_density` → `graded_buoyancy`) no mundo para corrigir o Princípio de Arquimedes e estabilizar o barco com ~11cm de calado.
+  - Adição de 6 plugins `Thruster` individuais, controlados por força em Newtons (`/cmd_thrust`).
+  - Adição do plugin `Hydrodynamics` com coeficientes SNAME para simulação realista de arrasto na água.
+
+---
+
+## FASE 7: Integração ArduPilot SITL Avançada via AP_DDS (Próximos Passos)
 
 ### Escopo Previsto
-- Adicionar os plugins nativos de Hidrodinâmica avançada do Gazebo Harmonic para substituir o controle cinemático irrealista.
-- Re-conectar a ponte do MAVLink (desativar `/cmd_vel` genérico e ler motores/thrusters).
-- Adicionar os sensores essenciais do robô (LiDAR Livox, Ping360, GPS, IMU, Câmera D435) no URDF.
-- Fechar a malha completa: ArduPilot controlando os motores de acordo com a física e os sensores simulados no Harmonic.
-- Preparar terreno para inferência da Política de IA.
+- **Subfase 7A (Dependências):** Instalar plugin `ardupilot_gazebo` e compilar o ArduPilot Rover SITL com suporte nativo ao **MicroXRCE DDS** (AP_DDS).
+- **Subfase 7B (Plugin no URDF):** Configurar o `ArduPilotPlugin` no `migbot.urdf.xacro` para converter as saídas PWM do SITL em forças (Newtons) para os 6 thrusters.
+- **Subfase 7C (Motor Mixer Lua):** Implementar um script Lua (Scripting Matrix, `FRAME_CLASS=15`) rodando no ArduPilot para distribuir comandos de aceleração e direção entre os 6 motores assimétricos.
+- **Subfase 7D (Comunicação):** Inicializar o `micro-ros-agent` para expor os tópicos do ArduPilot nativamente no ROS 2 Jazzy (ex: `/ap/pose/filtered`), substituindo a necessidade do MAVROS (visando latência mínima de ~2ms para futura integração de IA).
+- **Subfase 7E (Validação):** Conectar o QGroundControl ao SITL e executar missões autônomas (waypoints) no mundo `madeira_river_simple`.
+
+---
+
+## FASE 8: Sensores Adicionais e IA (Futuro)
+- Adição de LiDAR (Livox), Sonar (Ping360) e Câmera D435.
+- Execução de inferência de Política de IA (PyTorch) publicando diretamente em `/ap/cmd_vel`.
