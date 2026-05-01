@@ -46,3 +46,18 @@ Objetivo: reintroduzir partes específicas com risco controlado.
 - Portar `gazebo_usv_dynamics_plugin`, `buoyancy_gazebo_plugin`, etc.
 - Adicionar sensores específicos (LiDAR, Ping360).
 - Validar isoladamente e depois integrar.
+
+## Fase 7 - Integração ArduPilot SITL Avançada via AP_DDS
+Objetivo: substituir a ponte pymavlink provisória por integração nativa ArduPilot ↔ Gazebo ↔ ROS 2.
+- **7A:** Instalar `ardupilot_gazebo` plugin e compilar ArduPilot Rover SITL com `--enable-dds`.
+- **7B:** Configurar `ArduPilotPlugin` no `migbot.urdf.xacro` (6 canais PWM → Newtons nos thrusters).
+- **7C:** Implementar script Lua de Motor Mixer (`FRAME_CLASS=15`) para os 6 motores assimétricos.
+- **7D:** Inicializar `micro-ros-agent` para expor tópicos `/ap/*` nativos no ROS 2 (latência ~2ms).
+- **7E:** Validar missões autônomas (waypoints) via QGroundControl no mundo `madeira_river_simple`.
+- Documentação detalhada: `docs/FASE7_AP_DDS.md`.
+
+## Fase 8 - Sensores Adicionais e IA
+Objetivo: completar o stack de sensores e integrar política neural de desvio de obstáculos.
+- Adicionar LiDAR (Livox), Sonar (Ping360) e Câmera D435 ao URDF com bridges ROS 2.
+- Portar pipeline HuITL (coleta, treino, inferência) de `rospy` para `rclpy`.
+- Executar inferência de Política de IA (PyTorch) publicando diretamente em `/ap/cmd_vel` via AP_DDS.
