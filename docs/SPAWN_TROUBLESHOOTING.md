@@ -49,3 +49,11 @@ Na migração para Gazebo Harmonic, os plugins de sensores foram abolidos de den
 ```
 
 Esta documentação serve como referência obrigatória ("checkpoint mental") antes de tentarmos implementar plugins mais avançados de hidrodinâmica (SNAME) ou thrusters individuais (Subfase 6B).
+
+## 5. Dinâmica de Flutuabilidade: Barco de Ponta-Cabeça e Proa Afundando
+**Sintoma 1 (Barco Invertido):** O barco spawnava perfeitamente, mas caía na água e girava 180 graus, ficando com as hélices apontadas para o céu.
+* **Solução Aplicada:** O Centro de Massa (CoM) original no eixo `Z` estava muito alto (`z=0.25`). Para que um barco seja naturalmente estável na água (efeito "joão-bobo"), o Centro de Massa precisa estar o mais baixo possível em relação ao Centro de Flutuabilidade. A IA anterior abaixou a origem inercial no eixo Z para `0.15`, forçando o barco a ficar de pé corretamente. Além disso, foram enxugadas as caixas de colisão antigas, simplificando os pontões.
+
+**Sintoma 2 (Proa Afundando / Fundo Saltado):** Após a correção do eixo Z, o barco ficou na posição certa (hélices na água), mas a frente do barco (proa) começou a "embicar" para baixo, deixando a parte traseira levantada.
+* **Causa Raiz:** O Centro de Massa no eixo longitudinal (`X`) estava muito à frente (`x=0.387`). No Gazebo, o `BuoyancyPlugin` calcula o empuxo estritamente pelo volume das malhas de colisão (`<collision>`) que estão submersas. Se o peso do barco estiver concentrado muito à frente do centro desse volume submerso, ele vai afundar a frente. Além disso, o peso das próprias hélices lá atrás influencia a inércia total.
+* **Solução Aplicada:** Movimentamos a origem inercial no eixo X para trás, reduzindo de `0.387` para `0.150` no `<inertial>` do `base_link`. Isso atua como se tivéssemos colocado um contrapeso no fundo do barco, equilibrando a gangorra e deixando a linha d'água perfeitamente alinhada.

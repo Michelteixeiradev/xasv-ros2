@@ -24,7 +24,8 @@ setup(
     entry_points={
         'console_scripts': [
             # Mapeia o seu script Python para ser um executável do ROS 2
-            'mavlink_bridge_node.py = asv_mavlink.mavlink_bridge_node:main'
+            'mavlink_bridge_node.py = asv_mavlink.mavlink_bridge_node:main',
+            'fase7_sanity_check = asv_mavlink.fase7_sanity_check:main',
         ],
     },
 )

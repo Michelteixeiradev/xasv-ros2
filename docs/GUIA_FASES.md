@@ -47,17 +47,21 @@ Objetivo: reintroduzir partes específicas com risco controlado.
 - Adicionar sensores específicos (LiDAR, Ping360).
 - Validar isoladamente e depois integrar.
 
-## Fase 7 - Integração ArduPilot SITL Avançada via AP_DDS
-Objetivo: substituir a ponte pymavlink provisória por integração nativa ArduPilot ↔ Gazebo ↔ ROS 2.
-- **7A:** Instalar `ardupilot_gazebo` plugin e compilar ArduPilot Rover SITL com `--enable-dds`.
-- **7B:** Configurar `ArduPilotPlugin` no `migbot.urdf.xacro` (6 canais PWM → Newtons nos thrusters).
-- **7C:** Implementar script Lua de Motor Mixer (`FRAME_CLASS=15`) para os 6 motores assimétricos.
-- **7D:** Inicializar `micro-ros-agent` para expor tópicos `/ap/*` nativos no ROS 2 (latência ~2ms).
-- **7E:** Validar missões autônomas (waypoints) via QGroundControl no mundo `madeira_river_simple`.
-- Documentação detalhada: `docs/FASE7_AP_DDS.md`.
+## Fase 7 - Integração ArduPilot SITL Avançada
+Objetivo: controlar o Migbot no Gazebo Harmonic com ArduPilot Rover SITL e QGroundControl, preparando a migração para AP_DDS.
+- **Status atual:** Fase 7 fechada com MANUAL/AUTO via QGroundControl, AP_DDS validado e MAVLink mantido como fallback oficial dos atuadores. Em 2026-05-06 foi aplicado fix de race no auto-start do `micro_ros_agent` (`respawn=True`, agent t=10s antes de SITL t=18s) e missão WP1→WP2 foi confirmada em AUTO sem warning `DDS: No ping response`.
+- **7A:** Instalar `ardupilot_gazebo` plugin e preparar ArduPilot Rover SITL. `ardupilot_gazebo` está funcional; `ardurover` foi recompilado com `--enable-DDS` usando patches locais de compatibilidade do AP_DDS.
+- **7B:** Configurar `ArduPilotPlugin` no `migbot.urdf.xacro` para integração JSON/FDM entre Gazebo e SITL.
+- **7C:** Implementar script Lua de Motor Mixer V5 (`FRAME_CLASS=15`) para os 6 motores assimétricos, com entrada híbrida AP/RC.
+- **7D:** Inicializar e validar `micro-ros-agent` para expor tópicos `/ap/*` nativos no ROS 2. Concluído: `/ap/pose/filtered`, `/ap/twist/filtered`, `/ap/navsat`, `/ap/cmd_vel` e serviços `/ap/*` observados.
+- **7E:** Validar missões autônomas (waypoints) via QGroundControl. Concluído com a bridge MAVLink publicando `/model/migbot/joint/Engine_helice_N/cmd_vel`.
+- **Validação automatizada:** `ros2 run asv_mavlink fase7_sanity_check` confirma `SERVO_OUTPUT_RAW -> cmd_vel -> force -> pose`.
+- **Nota crítica:** o `gz-sim-thruster-system` com `use_angvel_cmd=true` escuta `cmd_vel`; hélice girando pela junta não garante empuxo. A bridge `asv_mavlink` continua sendo o backend oficial dos atuadores, mesmo com AP_DDS validado.
+- Documentação detalhada: `docs/FASE7_AP_DDS.md` e `docs/FASE7_STATUS.md`.
 
 ## Fase 8 - Sensores Adicionais e IA
 Objetivo: completar o stack de sensores e integrar política neural de desvio de obstáculos.
 - Adicionar LiDAR (Livox), Sonar (Ping360) e Câmera D435 ao URDF com bridges ROS 2.
+- **Obstacle avoidance:** problema observado no fim da Fase 7 — Migbot navega WP1→WP2 mas colide em obstáculos do `madeira_river_simple`. Avaliar `OA_TYPE` (BendyRuler/Dijkstra) + `PRX_TYPE` no ArduPilot com sensor virtual no Gazebo, ou Nav2 ROS 2 sobre `/ap/cmd_vel`.
 - Portar pipeline HuITL (coleta, treino, inferência) de `rospy` para `rclpy`.
-- Executar inferência de Política de IA (PyTorch) publicando diretamente em `/ap/cmd_vel` via AP_DDS.
+- Executar inferência de Política de IA (PyTorch) publicando comandos de alto nível via AP_DDS (`/ap/cmd_vel` ou serviços `/ap/*`), mantendo caminho MAVLink/ROS 2 como fallback operacional dos thrusters.

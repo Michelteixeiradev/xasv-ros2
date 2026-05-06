@@ -5,6 +5,49 @@ Figure&nbsp;1.
   <img src="figs/xitl_architecture.png" alt="xasv-sim X-in-the-Loop architecture" width="600"/>
 </p>
 
+## Current ROS 2 / Gazebo Harmonic State
+
+The current validated Phase 7 stack runs Migbot in Gazebo Harmonic with
+ArduPilot Rover SITL, QGroundControl, AP_DDS and a MAVLink actuator fallback.
+
+Validated runtime flow:
+
+```text
+QGroundControl
+  -> MAVLink
+  -> ArduPilot Rover SITL
+  -> Lua mixer V5
+  -> SERVO_OUTPUT_RAW
+  -> asv_mavlink/mavlink_bridge_node.py
+  -> /model/migbot/joint/Engine_helice_N/cmd_vel
+  -> gz-sim-thruster-system
+  -> physical thrust in Gazebo
+```
+
+AP_DDS is also active:
+
+```text
+ArduPilot Rover SITL
+  -> micro-ros-agent udp4:2019
+  -> /ap/pose/filtered, /ap/twist/filtered, /ap/navsat, /ap/cmd_vel, /ap/*
+```
+
+Important actuator decision: AP_DDS is validated for telemetry, services and
+high-level ROS 2 commands, but MAVLink remains the official actuator fallback.
+The Gazebo `Thruster` system with `use_angvel_cmd=true` consumes
+`/model/migbot/joint/Engine_helice_N/cmd_vel`; propeller joint rotation alone
+does not prove physical thrust.
+
+The Phase 7 sanity command is:
+
+```bash
+ros2 run asv_mavlink fase7_sanity_check
+```
+
+It validates `SERVO_OUTPUT_RAW -> cmd_vel -> force -> pose`.
+
+## XITL Overview
+
 At the core of the stack, ArduPilot runs either
 
 - in **SITL**, as a software process on the host machine, or  
@@ -12,18 +55,19 @@ At the core of the stack, ArduPilot runs either
 
 - **QGroundControl (QGC)** connects to ArduPilot via MAVLINK for mission upload, parameter tuning and real-time monitoring.
 
-- **MAVROS** bridges MAVLINK to ROS topics and services, allowing ROS nodes to read vehicle state and send high-level commands (e.g., mode changes, guided waypoints, velocity or wrench commands).
+- In the current ROS 2 stack, **AP_DDS** exposes native `/ap/*` topics and services, while `asv_mavlink` bridges MAVLink `SERVO_OUTPUT_RAW` to Gazebo thruster `cmd_vel`.
+- Legacy/MAVROS-based flows may still be useful as historical reference, but they are not the validated Phase 7 actuator path.
 
 On the simulation side, **Gazebo** hosts the ASV and the river world:
 
-- The `ardupilot_plugin` (via `gz_api`) implements the vehicle dynamics model (FDM) and feeds simulated sensor measurements back to ArduPilot.
+- The `ArduPilotPlugin` from `ardupilot_gazebo` connects Gazebo Harmonic and ArduPilot SITL through JSON/FDM.
 - Additional simulated sensors (IMU, GPS, MAG, BAR, CAM, SON, LID) are
   attached to the ASV model inside Gazebo.
-- ROS communicates with Gazebo through original `ros_gz_api` and `gazebo_ros` plugins, enabling access to topics such as poses, wrench commands, camera images and point clouds.
+- ROS communicates with Gazebo through `ros_gz_bridge`, enabling access to `cmd_vel`, thruster `force`, pose and simulated sensor topics.
 
 Human interaction and teleoperation are also integrated:
 
-- A joystick (`joy`) node feeds commands into MAVROS, allowing a human operator to control the vehicle or intervene during experiments.
+- AP_DDS exposes `/ap/joy` and `/ap/cmd_vel` for ROS 2 command experiments, while QGC/MAVLink remains the validated human mission-control path.
 - QGrondControl (QGC) provides a graphical interface for the operator to monitor the mission and issue high-level commands.
 
 The coloured regions in Figure&nbsp;1 highlight the different X-in-the-Loop

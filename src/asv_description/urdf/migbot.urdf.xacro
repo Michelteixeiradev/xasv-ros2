@@ -134,7 +134,8 @@
       </geometry>
     </collision>
     <inertial>
-      <origin xyz="0.387 0.095 0.15" rpy="0 0 0" />
+      <!-- CoM centralizado entre pontoes (Y=0.096) e abaixado (Z=0.05) para estabilidade lateral -->
+      <origin xyz="0.150 0.096 0.05" rpy="0 0 0" />
       <mass value="142.500037" />
       <inertia ixx="37.182755" ixy="0.0" ixz="0.0" iyy="70.128464" iyz="0.0" izz="92.883435" />
     </inertial>
@@ -147,42 +148,42 @@
     <parent link="base_link" />
     <child link="Helice_1" />
     <origin xyz="1.0098435878753662 -0.5541407465934753 0.6604171991348267" rpy="0.0 0.0 0.0" />
-    <axis xyz="0 1 0" />
+    <axis xyz="1 0 0" />
     <dynamics damping="0.05" friction="0.05" />
   </joint>
   <joint name="Engine_helice_2" type="continuous">
     <parent link="base_link" />
     <child link="Helice_2" />
     <origin xyz="-0.34517043828964233 0.746247410774231 0.6604171991348267" rpy="0.0 0.0 0.0" />
-    <axis xyz="0 1 0" />
+    <axis xyz="1 0 0" />
     <dynamics damping="0.05" friction="0.05" />
   </joint>
   <joint name="Engine_helice_3" type="continuous">
     <parent link="base_link" />
     <child link="Helice_3" />
     <origin xyz="1.009843349456787 0.7462476491928101 0.6604171991348267" rpy="0.0 0.0 0.0" />
-    <axis xyz="0 1 0" />
+    <axis xyz="1 0 0" />
     <dynamics damping="0.05" friction="0.05" />
   </joint>
   <joint name="Engine_helice_4" type="continuous">
     <parent link="base_link" />
     <child link="Helice_4" />
     <origin xyz="-0.345170259475708 -0.5537497997283936 0.6604171991348267" rpy="0.0 0.0 0.0" />
-    <axis xyz="0 1 0" />
+    <axis xyz="1 0 0" />
     <dynamics damping="0.05" friction="0.05" />
   </joint>
   <joint name="Engine_helice_5" type="continuous">
     <parent link="base_link" />
     <child link="Helice_5" />
     <origin xyz="-0.7168807983398438 0.746498703956604 0.6604171991348267" rpy="0.0 0.0 0.0" />
-    <axis xyz="0 1 0" />
+    <axis xyz="1 0 0" />
     <dynamics damping="0.05" friction="0.05" />
   </joint>
   <joint name="Engine_helice_6" type="continuous">
     <parent link="base_link" />
     <child link="Helice_6" />
     <origin xyz="-0.7168805599212646 -0.5537497997283936 0.6604171991348267" rpy="0.0 0.0 0.0" />
-    <axis xyz="0 1 0" />
+    <axis xyz="1 0 0" />
     <dynamics damping="0.05" friction="0.05" />
   </joint>
 
@@ -239,12 +240,10 @@
   <!-- ====================================================== -->
   <!-- Sensores Gazebo (referências de link)                  -->
   <!-- ====================================================== -->
-  <gazebo reference="imu_link">
+  <gazebo reference="base_link">
     <sensor name="imu_sensor" type="imu">
       <always_on>1</always_on>
       <update_rate>50</update_rate>
-      <topic>imu</topic>
-      <gz_frame_id>imu_link</gz_frame_id>
       <imu>
         <angular_velocity><x><noise type="gaussian"><mean>0</mean><stddev>0.009</stddev></noise></x><y><noise type="gaussian"><mean>0</mean><stddev>0.009</stddev></noise></y><z><noise type="gaussian"><mean>0</mean><stddev>0.009</stddev></noise></z></angular_velocity>
         <linear_acceleration><x><noise type="gaussian"><mean>0</mean><stddev>0.1</stddev></noise></x><y><noise type="gaussian"><mean>0</mean><stddev>0.1</stddev></noise></y><z><noise type="gaussian"><mean>0</mean><stddev>0.1</stddev></noise></z></linear_acceleration>
@@ -252,19 +251,17 @@
     </sensor>
   </gazebo>
 
-  <gazebo reference="gps_link">
+  <gazebo reference="base_link">
     <sensor name="navsat_sensor" type="navsat">
       <always_on>1</always_on>
       <update_rate>5</update_rate>
-      <topic>navsat</topic>
     </sensor>
   </gazebo>
 
-  <gazebo reference="mag_link">
+  <gazebo reference="base_link">
     <sensor name="magnetometer_sensor" type="magnetometer">
       <always_on>1</always_on>
       <update_rate>20</update_rate>
-      <topic>magnetometer</topic>
     </sensor>
   </gazebo>
 
@@ -276,50 +273,50 @@
     <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
       <namespace>migbot</namespace>
       <joint_name>Engine_helice_1</joint_name>
-      <thrust_coefficient>0.004422</thrust_coefficient>
+      <thrust_coefficient>0.05</thrust_coefficient>
       <fluid_density>997.8</fluid_density>
-      <propeller_diameter>0.08</propeller_diameter>
-      <use_angvel_cmd>false</use_angvel_cmd>
+      <propeller_diameter>0.2</propeller_diameter>
+      <use_angvel_cmd>true</use_angvel_cmd>
     </plugin>
     <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
       <namespace>migbot</namespace>
       <joint_name>Engine_helice_2</joint_name>
-      <thrust_coefficient>0.004422</thrust_coefficient>
+      <thrust_coefficient>0.05</thrust_coefficient>
       <fluid_density>997.8</fluid_density>
-      <propeller_diameter>0.08</propeller_diameter>
-      <use_angvel_cmd>false</use_angvel_cmd>
+      <propeller_diameter>0.2</propeller_diameter>
+      <use_angvel_cmd>true</use_angvel_cmd>
     </plugin>
     <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
       <namespace>migbot</namespace>
       <joint_name>Engine_helice_3</joint_name>
-      <thrust_coefficient>0.004422</thrust_coefficient>
+      <thrust_coefficient>0.05</thrust_coefficient>
       <fluid_density>997.8</fluid_density>
-      <propeller_diameter>0.08</propeller_diameter>
-      <use_angvel_cmd>false</use_angvel_cmd>
+      <propeller_diameter>0.2</propeller_diameter>
+      <use_angvel_cmd>true</use_angvel_cmd>
     </plugin>
     <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
       <namespace>migbot</namespace>
       <joint_name>Engine_helice_4</joint_name>
-      <thrust_coefficient>0.004422</thrust_coefficient>
+      <thrust_coefficient>0.05</thrust_coefficient>
       <fluid_density>997.8</fluid_density>
-      <propeller_diameter>0.08</propeller_diameter>
-      <use_angvel_cmd>false</use_angvel_cmd>
+      <propeller_diameter>0.2</propeller_diameter>
+      <use_angvel_cmd>true</use_angvel_cmd>
     </plugin>
     <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
       <namespace>migbot</namespace>
       <joint_name>Engine_helice_5</joint_name>
-      <thrust_coefficient>0.004422</thrust_coefficient>
+      <thrust_coefficient>0.05</thrust_coefficient>
       <fluid_density>997.8</fluid_density>
-      <propeller_diameter>0.08</propeller_diameter>
-      <use_angvel_cmd>false</use_angvel_cmd>
+      <propeller_diameter>0.2</propeller_diameter>
+      <use_angvel_cmd>true</use_angvel_cmd>
     </plugin>
     <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
       <namespace>migbot</namespace>
       <joint_name>Engine_helice_6</joint_name>
-      <thrust_coefficient>0.004422</thrust_coefficient>
+      <thrust_coefficient>0.05</thrust_coefficient>
       <fluid_density>997.8</fluid_density>
-      <propeller_diameter>0.08</propeller_diameter>
-      <use_angvel_cmd>false</use_angvel_cmd>
+      <propeller_diameter>0.2</propeller_diameter>
+      <use_angvel_cmd>true</use_angvel_cmd>
     </plugin>
 
     <!-- ========== HIDRODINÂMICA (SNAME) ========== -->
@@ -343,6 +340,128 @@
       <use_pose_vector_msg>true</use_pose_vector_msg>
       <static_publisher>true</static_publisher>
       <static_update_frequency>10</static_update_frequency>
+    </plugin>
+  </gazebo>
+
+  <!-- ====================================================== -->
+  <!-- ArduPilot SITL Plugin (Fase 7B)                        -->
+  <!-- Formato seguindo iris_with_ardupilot/model.sdf oficial. -->
+  <!-- ====================================================== -->
+  <gazebo>
+    <plugin name="ArduPilotPlugin" filename="ArduPilotPlugin">
+      <fdm_addr>127.0.0.1</fdm_addr>
+      <fdm_port_in>9002</fdm_port_in>
+      <connectionTimeoutMaxCount>5</connectionTimeoutMaxCount>
+      <lock_step>1</lock_step>
+      <no_time_sync>1</no_time_sync>
+      <have_32_channels>0</have_32_channels>
+
+      <modelXYZToAirplaneXForwardZDown degrees="true">0 0 0 0 0 0</modelXYZToAirplaneXForwardZDown>
+      <gazeboXYZToNED degrees="true">0 0 0 180 0 90</gazeboXYZToNED>
+
+      <imuName>base_link::imu_sensor</imuName>
+
+      <control channel="0">
+        <jointName>Engine_helice_1</jointName>
+        <useForce>1</useForce>
+        <multiplier>100.0</multiplier>
+        <offset>-0.5</offset>
+        <servo_min>1000</servo_min>
+        <servo_max>2000</servo_max>
+        <type>VELOCITY</type>
+        <p_gain>1.0</p_gain>
+        <i_gain>0</i_gain>
+        <d_gain>0</d_gain>
+        <i_max>0</i_max>
+        <i_min>0</i_min>
+        <cmd_max>50.0</cmd_max>
+        <cmd_min>-50.0</cmd_min>
+      </control>
+
+      <control channel="1">
+        <jointName>Engine_helice_2</jointName>
+        <useForce>1</useForce>
+        <multiplier>100.0</multiplier>
+        <offset>-0.5</offset>
+        <servo_min>1000</servo_min>
+        <servo_max>2000</servo_max>
+        <type>VELOCITY</type>
+        <p_gain>1.0</p_gain>
+        <i_gain>0</i_gain>
+        <d_gain>0</d_gain>
+        <i_max>0</i_max>
+        <i_min>0</i_min>
+        <cmd_max>50.0</cmd_max>
+        <cmd_min>-50.0</cmd_min>
+      </control>
+
+      <control channel="2">
+        <jointName>Engine_helice_3</jointName>
+        <useForce>1</useForce>
+        <multiplier>100.0</multiplier>
+        <offset>-0.5</offset>
+        <servo_min>1000</servo_min>
+        <servo_max>2000</servo_max>
+        <type>VELOCITY</type>
+        <p_gain>1.0</p_gain>
+        <i_gain>0</i_gain>
+        <d_gain>0</d_gain>
+        <i_max>0</i_max>
+        <i_min>0</i_min>
+        <cmd_max>50.0</cmd_max>
+        <cmd_min>-50.0</cmd_min>
+      </control>
+
+      <control channel="3">
+        <jointName>Engine_helice_4</jointName>
+        <useForce>1</useForce>
+        <multiplier>100.0</multiplier>
+        <offset>-0.5</offset>
+        <servo_min>1000</servo_min>
+        <servo_max>2000</servo_max>
+        <type>VELOCITY</type>
+        <p_gain>1.0</p_gain>
+        <i_gain>0</i_gain>
+        <d_gain>0</d_gain>
+        <i_max>0</i_max>
+        <i_min>0</i_min>
+        <cmd_max>50.0</cmd_max>
+        <cmd_min>-50.0</cmd_min>
+      </control>
+
+      <control channel="4">
+        <jointName>Engine_helice_5</jointName>
+        <useForce>1</useForce>
+        <multiplier>100.0</multiplier>
+        <offset>-0.5</offset>
+        <servo_min>1000</servo_min>
+        <servo_max>2000</servo_max>
+        <type>VELOCITY</type>
+        <p_gain>1.0</p_gain>
+        <i_gain>0</i_gain>
+        <d_gain>0</d_gain>
+        <i_max>0</i_max>
+        <i_min>0</i_min>
+        <cmd_max>50.0</cmd_max>
+        <cmd_min>-50.0</cmd_min>
+      </control>
+
+      <control channel="5">
+        <jointName>Engine_helice_6</jointName>
+        <useForce>1</useForce>
+        <multiplier>100.0</multiplier>
+        <offset>-0.5</offset>
+        <servo_min>1000</servo_min>
+        <servo_max>2000</servo_max>
+        <type>VELOCITY</type>
+        <p_gain>1.0</p_gain>
+        <i_gain>0</i_gain>
+        <d_gain>0</d_gain>
+        <i_max>0</i_max>
+        <i_min>0</i_min>
+        <cmd_max>50.0</cmd_max>
+        <cmd_min>-50.0</cmd_min>
+      </control>
     </plugin>
   </gazebo>
 
