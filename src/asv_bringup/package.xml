@@ -5,15 +5,25 @@
   <name>asv_bringup</name> <!-- Define o nome do pacote -->
   <version>0.0.0</version> <!-- Define a versão do pacote -->
   <description>Pacote de inicializacao do ASV</description> <!-- Define a descrição do pacote -->
-  <maintainer email="[EMAIL_ADDRESS]">Michel Kleyton</maintainer> <!-- Define o mantenedor do pacote -->
+  <maintainer email="michel@example.com">Michel Kleyton</maintainer>
   <license>Apache-2.0</license> <!-- Define a licença do pacote -->
 
-  <test_depend>ament_copyright</test_depend> <!-- Dependência para testes de direitos autorais -->
-  <test_depend>ament_flake8</test_depend> <!-- Dependência para testes de linting -->
-  <test_depend>ament_pep257</test_depend> <!-- Dependência para testes de linting -->
-  <test_depend>python3-pytest</test_depend> <!-- Dependência para testes de pytest -->
+<exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>ros_gz_sim</exec_depend>
+  <exec_depend>ros_gz_bridge</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>asv_mavlink</exec_depend>
+  
+  <exec_depend>asv_description</exec_depend>
+  <exec_depend>asv_gazebo</exec_depend>
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
 
   <export>
-    <build_type>ament_cmake</build_type> <!-- Define o tipo de build, que é o ament_cmake -->
+    <build_type>ament_cmake</build_type>
   </export>
 </package>

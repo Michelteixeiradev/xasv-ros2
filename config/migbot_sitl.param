@@ -1,0 +1,79 @@
+# migbot_sitl.param
+# Parâmetros para ArduPilot Rover SITL + migbot
+
+# Tipo de frame: Scripting Matrix (permite mixer Lua customizado)
+FRAME_CLASS 15
+
+# Habilitar scripting Lua
+SCR_ENABLE 1
+
+# Habilitar o modulo DDS (micro-ros-agent)
+DDS_ENABLE 1
+DDS_UDP_PORT 2019
+
+# Funcao dos 6 canais SERVO (94-99 = Script1-Script6 para scripting matrix)
+SERVO1_FUNCTION 94
+SERVO2_FUNCTION 95
+SERVO3_FUNCTION 96
+SERVO4_FUNCTION 97
+SERVO5_FUNCTION 98
+SERVO6_FUNCTION 99
+
+# Funcoes dummy para satisfazer PreArm do Rover
+SERVO7_FUNCTION 70
+SERVO8_FUNCTION 26
+
+# Limites PWM (devem corresponder ao ArduPilotPlugin no URDF)
+SERVO1_MIN 1000
+SERVO1_MAX 2000
+SERVO2_MIN 1000
+SERVO2_MAX 2000
+SERVO3_MIN 1000
+SERVO3_MAX 2000
+SERVO4_MIN 1000
+SERVO4_MAX 2000
+SERVO5_MIN 1000
+SERVO5_MAX 2000
+SERVO6_MIN 1000
+SERVO6_MAX 2000
+
+# Coordenadas iniciais do Rio Madeira (lat, lon, alt, yaw)
+SIM_OPOS_LAT -8.798638
+SIM_OPOS_LNG -63.952087
+SIM_OPOS_ALT 58
+SIM_OPOS_HDG 0
+
+# Burlar checagens de segurança para testes SITL
+ARMING_CHECK 0
+FS_THR_ENABLE 0
+
+# ==========================================================================
+# Tuning boat-friendly para destravar AUTO (Fase 7E)
+# ==========================================================================
+# Diagnostico: defaults do Rover sao tunados para carrinho terrestre leve
+# (ATC_SPEED_FF=0, ATC_ACCEL_MAX=1, TURN_RADIUS=0.9). Em AUTO o speed PID
+# nao consegue rampar throttle e o steering oscila sem convergir.
+
+# --- Cinematica desejada (barco lento, manobra ampla) ---
+CRUISE_SPEED 1.0
+CRUISE_THROTTLE 30
+WP_SPEED 1.0
+WP_RADIUS 5.0
+TURN_RADIUS 5.0
+
+# --- Speed controller: adicionar feedforward pra throttle responder direto ---
+ATC_SPEED_FF 0.5
+ATC_SPEED_P 0.5
+ATC_SPEED_I 0.2
+ATC_ACCEL_MAX 0.3
+
+# --- Steering controller: reduzir ganhos pra parar oscilacao de yaw ---
+ATC_STR_RAT_P 0.10
+ATC_STR_RAT_I 0.10
+ATC_STR_RAT_FF 0.10
+ATC_STR_ANG_P 1.5
+ATC_TURN_MAX_G 0.3
+
+# --- Saida de motor: suavizar transientes ---
+MOT_SLEWRATE 50
+
