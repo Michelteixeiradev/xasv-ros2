@@ -106,7 +106,3 @@ Toda a documentação técnica está em [`docs/`](docs/):
 | [ROS1_TO_ROS2_ASV_MIGRATION_GUIDE.md](docs/ROS1_TO_ROS2_ASV_MIGRATION_GUIDE.md) | Guia completo de migração ROS 1 → ROS 2 |
 | [XITL.md](docs/XITL.md) | Detalhamento da arquitetura X-in-the-Loop |
 | [branches_mapping.md](docs/branches_mapping.md) | Mapeamento de branches do Git |
-
-## Licença
-
-Projeto acadêmico — Universidade Federal de Rondônia (UNIR).
